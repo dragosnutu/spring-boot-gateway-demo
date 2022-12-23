@@ -1,0 +1,21 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: spring-boot-gateway-demo
+build:
+  artifacts:
+    - image: gateway-demo
+      jib: { }
+
+manifests:
+  kustomize:
+    paths:
+      - k8s
+
+portForward:
+  - resourceType: service
+    resourceName: gateway-demo
+    port: 8280
+  - resourceType: service
+    resourceName: gateway-demo
+    port: 8281
